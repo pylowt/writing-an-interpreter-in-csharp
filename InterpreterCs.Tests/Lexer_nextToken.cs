@@ -10,6 +10,5 @@ public class Lexer_nextToken
 		var expectedType = token.TokenType();
         var result = lexer.nextToken();
 
-            Assert.False(result, "1 should not be prime");
     }
 }
