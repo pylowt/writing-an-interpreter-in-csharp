@@ -1,3 +1,5 @@
+namespace token {
+
 public struct TokenType
 {
     public string Value { get; set; }
@@ -35,4 +37,5 @@ static class Constants
 	// Keywords
 	public const string FUNCTION = "FUNCTION";
 	public const string LET		 = "LET";
+}
 }
