@@ -1,4 +1,4 @@
-namespace token; 
+namespace token;
 
 public struct TokenType
 {
