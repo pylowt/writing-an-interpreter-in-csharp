@@ -1,8 +1,8 @@
-﻿using System;
-
-class Program 
+﻿namespace writing_an_interpreter_in_csharp;
+class Program
 {
-	public static void Main(string[] args)
-	{
-	}
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Hello, World!");
+    }
 }
