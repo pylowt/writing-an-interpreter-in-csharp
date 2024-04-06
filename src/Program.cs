@@ -1,8 +1,2 @@
-﻿namespace writing_an_interpreter_in_csharp;
-class Program
-{
-    static void Main(string[] args)
-    {
-        Console.WriteLine("Hello, World!");
-    }
-}
+﻿// See https://aka.ms/new-console-template for more information
+Console.WriteLine("Hello, World!");

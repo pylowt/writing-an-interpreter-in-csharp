@@ -1,13 +1,24 @@
-namespace token;
+namespace Token;
 
-public struct TokenType
+public readonly struct TokenType
 {
-	public readonly string Value;
+	public readonly string value;
 
 	public TokenType(string value)
 	{
-		Value = value;
+		this.value = value ?? throw new ArgumentNullException(nameof(value));
 	}
+
+	public static implicit operator TokenType(string value)
+	{
+		return new TokenType(value);
+	}
+	public static implicit operator string(TokenType tokenType)
+	{
+		return tokenType.value;
+	}
+	public override string ToString() => value;
+
 }
 
 public struct Token
