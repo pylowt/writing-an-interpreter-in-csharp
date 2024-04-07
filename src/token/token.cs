@@ -25,7 +25,7 @@ public readonly struct TokenType
 public struct Token
 {
 	public readonly TokenType Type;
-	public string Literal { get; set; }
+	public readonly string Literal; 
 
 	public Token(TokenType type, string literal)
 	{

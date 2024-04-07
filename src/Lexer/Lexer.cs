@@ -31,9 +31,9 @@ public class Lexer
 		_readPosition++;
 	}
 
-	private Token NewToken(string tokenType)
+	private Token NewToken(string tokenType, string? overrideString = null)
 	{
-		return new Token(new TokenType(tokenType), $"{_ch}");
+		return new Token(new TokenType(tokenType), $"{overrideString ?? _ch.ToString()}");
 	}
 
 	public Token NextToken()
@@ -66,8 +66,7 @@ public class Lexer
 				tok = NewToken(TokenTypes.RBRACE);
 				break;
 			case '\0':
-				tok = NewToken(TokenTypes.EOF);
-				tok.Literal = String.Empty;
+				tok = NewToken(TokenTypes.EOF, String.Empty);
 				break;
 			default:
 				tok = NewToken(TokenTypes.ILLEGAL);
