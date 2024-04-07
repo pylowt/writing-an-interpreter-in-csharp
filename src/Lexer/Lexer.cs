@@ -39,6 +39,7 @@ public class Lexer
 	public Token NextToken()
 	{
 		Token tok;
+		EatWhitespace();
 		switch (_ch)
 		{
 			case '=':
@@ -69,11 +70,62 @@ public class Lexer
 				tok = NewToken(TokenTypes.EOF, String.Empty);
 				break;
 			default:
+				if (IsALetter())
+				{
+					var literal = ReadIdentifier();
+					tok = NewToken(TokenTypes.LookupIdent(literal), literal);
+					return tok;
+				}
+				if (IsADigit())
+				{
+					var literal = ReadNumber();
+					tok = NewToken(TokenTypes.INT, literal);
+					return tok;
+				}
 				tok = NewToken(TokenTypes.ILLEGAL);
+
 				break;
 		}
 		ReadChar();
 		return tok;
 	}
+	private bool IsALetter()
+	{
+		return char.IsLetter(_ch) || _ch == '_' || _ch == '!' || _ch == '?'; 
+	}
+	private bool IsADigit()
+	{
+		return char.IsDigit(_ch); 
+	}
+	private string ReadIdentifier()
+	{
+		var sb = new System.Text.StringBuilder();
+		while (IsALetter())
+		{
+			Console.WriteLine("{0} chars: {1}", sb.Length, sb.ToString());
+			sb.Append(_ch);
+			ReadChar();
+		}
+		return sb.ToString();
+	}	
+	private string ReadNumber()
+	{
+		var sb = new System.Text.StringBuilder();
+		while (IsADigit())
+		{
+			sb.Append(_ch);
+			ReadChar();
+		}
+		return sb.ToString();
+	}
+
+	private void EatWhitespace()
+	{
+		while (_ch is ' ' or '\t' or '\n' or '\r')
+		{
+			ReadChar();
+		}
+	}
 }
+
 

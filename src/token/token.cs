@@ -22,16 +22,19 @@ public readonly struct TokenType
 
 }
 
-public struct Token
+public readonly struct Token
 {
 	public readonly TokenType Type;
-	public readonly string Literal; 
+	public readonly string Literal;
+	
 
 	public Token(TokenType type, string literal)
 	{
 		Type = type;
 		Literal = literal;
 	}
+
+	
 }
 
 public static class TokenTypes
@@ -58,6 +61,19 @@ public static class TokenTypes
 	// Keywords
 	public const string FUNCTION = "FUNCTION";
 	public const string LET		 = "LET";
+	
+	private static readonly Dictionary<string, TokenType> Keywords = new()
+	{
+		{ "fn", FUNCTION},
+		{ "let", LET},
+	};
+	
+	public static TokenType LookupIdent(string ident)
+	{
+		if (Keywords.ContainsKey(ident))
+			return Keywords[ident];
+		return IDENT;
+	}
 }
 
 
