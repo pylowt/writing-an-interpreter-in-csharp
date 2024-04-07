@@ -1,6 +1,6 @@
 namespace Lexer.Tests;
 using System.Collections.Generic; 
-using Token;
+using Interpreter;
 
 public class LexerTests
 {

@@ -1,4 +1,4 @@
-namespace Token;
+namespace Interpreter;
 
 public readonly struct TokenType
 {
