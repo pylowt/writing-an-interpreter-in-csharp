@@ -26,7 +26,7 @@ public class LexerTests
 		foreach(KeyValuePair<string, string> entry in tests)
 		{
 			var result = lexer.nextToken();
-			var typeMessage = $"{result.Type} - TokenType wrong. Expected {entry.key}";
+			var typeMessage = $"{result.Type} - TokenType wrong. Expected {entry.Key}";
 			Assert.True(entry.Key.Equals(result.Type), typeMessage);
 			var literalMessage = $"{result.Literal} - Literal wrong. Expected {entry.Value}";
 			Assert.True(entry.Value.Equals(result.Literal), literalMessage);
