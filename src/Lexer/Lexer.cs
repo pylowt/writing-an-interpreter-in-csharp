@@ -1,6 +1,9 @@
-namespace Interpreter;
+using InterpreterCs.Token;
 
-public class Lexer 
+namespace InterpreterCs.Lexer;
+using InterpreterCs.Token;
+
+public class Lexer
 {
 	public string Input { get; }
 	private int _position; // Current position in input (points to current char)
@@ -10,19 +13,68 @@ public class Lexer
 	public Lexer(string input)
 	{
 		Input = input;
+		ReadChar();
 	}
-	
+
 	public void ReadChar()
 	{
-		if(_readPosition >= Input.Length) 
+		if (_readPosition >= Input.Length)
 		{
 			_ch = '\0';
 		}
-		else 
+		else
 		{
 			_ch = Input[_readPosition];
 		}
+
 		_position = _readPosition;
 		_readPosition++;
 	}
+
+	private Token NewToken(string tokenType)
+	{
+		return new Token(new TokenType(tokenType), $"{_ch}");
+	}
+
+	public Token NextToken()
+	{
+		Token tok;
+		switch (_ch)
+		{
+			case '=':
+				tok = NewToken(TokenTypes.ASSIGN);
+				break;
+			case ';':
+				tok = NewToken(TokenTypes.SEMICOLON);
+				break;
+			case '(':
+				tok = NewToken(TokenTypes.LPAREN);
+				break;
+			case ')':
+				tok = NewToken(TokenTypes.RPAREN);
+				break;
+			case ',':
+				tok = NewToken(TokenTypes.COMMA);
+				break;
+			case '+':
+				tok = NewToken(TokenTypes.PLUS);
+				break;
+			case '{':
+				tok = NewToken(TokenTypes.LBRACE);
+				break;
+			case '}':
+				tok = NewToken(TokenTypes.RBRACE);
+				break;
+			case '\0':
+				tok = NewToken(TokenTypes.EOF);
+				tok.Literal = String.Empty;
+				break;
+			default:
+				tok = NewToken(TokenTypes.ILLEGAL);
+				break;
+		}
+		ReadChar();
+		return tok;
+	}
 }
+

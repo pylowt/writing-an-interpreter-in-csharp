@@ -1,12 +1,13 @@
-namespace Interpreter;
+namespace InterpreterCs.Token;
 
 public readonly struct TokenType
 {
-	public readonly string value;
+	public readonly string Value;
 
 	public TokenType(string value)
 	{
-		this.value = value ?? throw new ArgumentNullException(nameof(value));
+		// this.value = value ?? throw new ArgumentNullException(nameof(value));
+		Value = value;
 	}
 
 	public static implicit operator TokenType(string value)
@@ -15,16 +16,16 @@ public readonly struct TokenType
 	}
 	public static implicit operator string(TokenType tokenType)
 	{
-		return tokenType.value;
+		return tokenType.Value;
 	}
-	public override string ToString() => value;
+	public override string ToString() => Value;
 
 }
 
 public struct Token
 {
 	public readonly TokenType Type;
-	public readonly string Literal;
+	public string Literal { get; set; }
 
 	public Token(TokenType type, string literal)
 	{

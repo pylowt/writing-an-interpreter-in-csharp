@@ -1,6 +1,7 @@
+using InterpreterCs.Token;
+
 namespace Lexer.Tests;
-using System.Collections.Generic; 
-using Interpreter;
+using System.Collections.Generic;
 
 public class LexerTests
 {
@@ -21,11 +22,11 @@ public class LexerTests
 		};
 
 		string input = "=+(){},;";
-		var lexer = new Lexer(input);
+		var lexer = new InterpreterCs.Lexer.Lexer(input);
 		
 		foreach(KeyValuePair<string, string> entry in tests)
 		{
-			var result = lexer.nextToken();
+			var result = lexer.NextToken();
 			var typeMessage = $"{result.Type} - TokenType wrong. Expected {entry.Key}";
 			Assert.True(entry.Key.Equals(result.Type), typeMessage);
 			var literalMessage = $"{result.Literal} - Literal wrong. Expected {entry.Value}";
