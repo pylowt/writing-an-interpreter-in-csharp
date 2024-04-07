@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class LexerTests
 {
     [Fact]
-    public void IsExpectedType()
+    public void TestNextTokenActualTokens()
     {
 		Dictionary<string, string> tests = new Dictionary<string, string>()
 		{
