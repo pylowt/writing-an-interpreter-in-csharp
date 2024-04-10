@@ -15,6 +15,8 @@ public class LexerTests
 			x + y;
 		};
 		let result = add(five, ten);
+!-/*5;
+5 < 10 > 5;
 		";
 	    List<KeyValuePair<string, string>> tests = new List<KeyValuePair<string, string>>
 	    {
