@@ -6,8 +6,7 @@ public readonly struct TokenType
 
 	public TokenType(string value)
 	{
-		// this.value = value ?? throw new ArgumentNullException(nameof(value));
-		Value = value;
+		this.Value = value ?? throw new ArgumentNullException(nameof(value));
 	}
 
 	public static implicit operator TokenType(string value)
@@ -49,6 +48,14 @@ public static class TokenTypes
 	// Operators
 	public const string ASSIGN = "=";
 	public const string PLUS	 = "+";
+	public const string MINUS	 = "-";
+	public const string BANG	 = "!";
+	public const string ASTERISK	 = "*";
+	public const string SLASH	 = "/";
+
+
+	public const string LT	 = "<";
+	public const string GT	 = ">";
 
 	// Delimiters
 	public const string COMMA		 = ",";
@@ -75,5 +82,4 @@ public static class TokenTypes
 		return IDENT;
 	}
 }
-
 

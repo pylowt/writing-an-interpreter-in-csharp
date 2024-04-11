@@ -56,6 +56,18 @@ public class LexerTests
 			new(TokenTypes.IDENT, "ten"),
 			new(TokenTypes.RPAREN, ")"),
 			new(TokenTypes.SEMICOLON, ";"),
+			new(TokenTypes.BANG, "!"),
+			new(TokenTypes.MINUS, "-"),
+			new(TokenTypes.SLASH, "/"),
+			new(TokenTypes.ASTERISK, "*"),
+			new(TokenTypes.INT, "5"),
+			new(TokenTypes.SEMICOLON, ";"),
+			new(TokenTypes.INT, "5"),
+			new(TokenTypes.LT, "<"),
+			new(TokenTypes.INT, "10"),
+			new(TokenTypes.GT, ">"),
+			new(TokenTypes.INT, "5"),
+			new(TokenTypes.SEMICOLON, ";"),
 			new(TokenTypes.EOF, ""),
 		};
 

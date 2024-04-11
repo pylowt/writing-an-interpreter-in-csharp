@@ -45,6 +45,30 @@ public class Lexer
 			case '=':
 				tok = NewToken(TokenTypes.ASSIGN);
 				break;
+			case '+':
+				tok = NewToken(TokenTypes.PLUS);
+				break;
+			case '-':
+				tok = NewToken(TokenTypes.MINUS);
+				break;
+			case '!':
+				tok = NewToken(TokenTypes.BANG);
+				break;
+			case '*':
+				tok = NewToken(TokenTypes.ASTERISK);
+				break;
+			case '/':
+				tok = NewToken(TokenTypes.SLASH);
+				break;
+			case '<':
+				tok = NewToken(TokenTypes.LT);
+				break;
+			case '>':
+				tok = NewToken(TokenTypes.GT);
+				break;
+			case ',':
+				tok = NewToken(TokenTypes.COMMA);
+				break;
 			case ';':
 				tok = NewToken(TokenTypes.SEMICOLON);
 				break;
@@ -53,12 +77,6 @@ public class Lexer
 				break;
 			case ')':
 				tok = NewToken(TokenTypes.RPAREN);
-				break;
-			case ',':
-				tok = NewToken(TokenTypes.COMMA);
-				break;
-			case '+':
-				tok = NewToken(TokenTypes.PLUS);
 				break;
 			case '{':
 				tok = NewToken(TokenTypes.LBRACE);
@@ -102,7 +120,6 @@ public class Lexer
 		var sb = new System.Text.StringBuilder();
 		while (IsALetter())
 		{
-			Console.WriteLine("{0} chars: {1}", sb.Length, sb.ToString());
 			sb.Append(_ch);
 			ReadChar();
 		}
