@@ -109,7 +109,7 @@ public class Lexer
 	}
 	private bool IsALetter()
 	{
-		return char.IsLetter(_ch) || _ch == '_' || _ch == '!' || _ch == '?'; 
+		return char.IsLetter(_ch) || _ch is '_' or '!' or '?'; 
 	}
 	private bool IsADigit()
 	{

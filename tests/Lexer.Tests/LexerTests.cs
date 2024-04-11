@@ -11,10 +11,10 @@ public class LexerTests
 	    string input = @"let five = 5;
 		let ten = 10;
 
-		let add = fn(x, y) {
+		let add_? = fn(x, y) {
 			x + y;
 		};
-		let result = add(five, ten);
+		let result! = add(five, ten);
 !-/*5;
 5 < 10 > 5;
 		";
@@ -31,7 +31,7 @@ public class LexerTests
 			new(TokenTypes.INT, "10"),
 			new(TokenTypes.SEMICOLON, ";"),
 			new(TokenTypes.LET, "let"),
-			new(TokenTypes.IDENT, "add"),
+			new(TokenTypes.IDENT, "add_?"),
 			new(TokenTypes.ASSIGN, "="),
 			new(TokenTypes.FUNCTION, "fn"),
 			new(TokenTypes.LPAREN, "("),
@@ -47,7 +47,7 @@ public class LexerTests
 			new(TokenTypes.RBRACE, "}"),
 			new(TokenTypes.SEMICOLON, ";"),
 			new(TokenTypes.LET, "let"),
-			new(TokenTypes.IDENT, "result"),
+			new(TokenTypes.IDENT, "result!"),
 			new(TokenTypes.ASSIGN, "="),
 			new(TokenTypes.IDENT, "add"),
 			new(TokenTypes.LPAREN, "("),
