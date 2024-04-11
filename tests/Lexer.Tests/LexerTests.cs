@@ -1,11 +1,12 @@
 using InterpreterCs.Token;
+using Xunit.Abstractions;
 
 namespace Lexer.Tests;
 using System.Collections.Generic;
 
 public class LexerTests
 {
-    [Fact]
+	[Fact]
     public void TestNextToken()
     {
 	    string input = @"let five = 5;
@@ -15,8 +16,14 @@ public class LexerTests
 			x + y;
 		};
 		let result! = add(five, ten);
-!-/*5;
-5 < 10 > 5;
+		!-/*5;
+		5 < 10 > 5;
+		
+		if (5 < 10) {
+			return true;
+		} else {
+			return false;
+		}
 		";
 	    List<KeyValuePair<string, string>> tests = new List<KeyValuePair<string, string>>
 	    {
@@ -68,11 +75,27 @@ public class LexerTests
 			new(TokenTypes.GT, ">"),
 			new(TokenTypes.INT, "5"),
 			new(TokenTypes.SEMICOLON, ";"),
+			new(TokenTypes.IF, "if"),
+			new(TokenTypes.LPAREN, "("),
+			new(TokenTypes.INT, "5"),
+			new(TokenTypes.LT, "<"),
+			new(TokenTypes.INT, "10"),
+			new(TokenTypes.RPAREN, ")"),
+			new(TokenTypes.LBRACE, "{"),
+			new(TokenTypes.RETURN, "return"),
+			new(TokenTypes.TRUE, "true"),
+			new(TokenTypes.SEMICOLON, ";"),
+			new(TokenTypes.RBRACE, "}"),
+			new(TokenTypes.ELSE, "else"),
+			new(TokenTypes.LBRACE, "{"),
+			new(TokenTypes.RETURN, "return"),
+			new(TokenTypes.FALSE, "false"),
+			new(TokenTypes.SEMICOLON, ";"),
+			new(TokenTypes.RBRACE, "}"),
 			new(TokenTypes.EOF, ""),
 		};
 
 		var lexer = new InterpreterCs.Lexer.Lexer(input);
-		
 		foreach(KeyValuePair<string, string> entry in tests)
 		{
 			var result = lexer.NextToken();

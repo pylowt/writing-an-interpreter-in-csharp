@@ -68,11 +68,21 @@ public static class TokenTypes
 	// Keywords
 	public const string FUNCTION = "FUNCTION";
 	public const string LET		 = "LET";
+	public const string TRUE	= "TRUE";
+	public const string FALSE	= "FALSE";
+	public const string IF  	= "IF";
+	public const string ELSE  	= "ELSE";
+	public const string RETURN  	= "RETURN";
 	
 	private static readonly Dictionary<string, TokenType> Keywords = new()
 	{
 		{ "fn", FUNCTION},
 		{ "let", LET},
+		{ "true", TRUE},
+		{ "false", FALSE},
+		{ "if", IF},
+		{ "else", ELSE},
+		{ "return", RETURN},
 	};
 	
 	public static TokenType LookupIdent(string ident)
