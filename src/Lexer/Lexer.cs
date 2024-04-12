@@ -6,9 +6,12 @@ using InterpreterCs.Token;
 public class Lexer
 {
 	public string Input { get; }
-	private int _position; // Current position in input (points to current char)
-	private int _readPosition; // Current reading position in input (after current char)
-	private char _ch; // Current char under examination
+	// Current position in input (points to current char)
+	private int _position; 
+	// Current reading position in input (after current char)
+	private int _readPosition; 
+	// Current char under examination
+	private char _ch; 
 
 	public Lexer(string input)
 	{
