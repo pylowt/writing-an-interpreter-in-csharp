@@ -24,6 +24,10 @@ public class LexerTests
 		} else {
 			return false;
 		}
+
+		10 == 10;
+		10 != 9;
+
 		";
 	    List<KeyValuePair<string, string>> tests = new List<KeyValuePair<string, string>>
 	    {
@@ -92,6 +96,14 @@ public class LexerTests
 			new(TokenTypes.FALSE, "false"),
 			new(TokenTypes.SEMICOLON, ";"),
 			new(TokenTypes.RBRACE, "}"),
+			new(TokenTypes.INT, "10"),
+			new(TokenTypes.EQ, "=="),
+			new(TokenTypes.INT, "10"),
+			new(TokenTypes.SEMICOLON, ";"),
+			new(TokenTypes.INT, "10"),
+			new(TokenTypes.NOT_EQ, "!="),
+			new(TokenTypes.INT, "9"),
+			new(TokenTypes.SEMICOLON, ";"),
 			new(TokenTypes.EOF, ""),
 		};
 
