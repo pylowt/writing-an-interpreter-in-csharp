@@ -5,7 +5,7 @@ using InterpreterCs.Token;
 
 public class Lexer
 {
-	public string Input { get; }
+	private string Input { get; }
 	// Current position in input (points to current char)
 	private int _position; 
 	// Current reading position in input (after current char)
@@ -46,6 +46,12 @@ public class Lexer
 		switch (_ch)
 		{
 			case '=':
+				if (PeekAhead() == '=')
+				{
+					tok = NewToken(TokenTypes.EQ, "==");
+					ReadChar();
+					break;
+				}
 				tok = NewToken(TokenTypes.ASSIGN);
 				break;
 			case '+':
@@ -55,6 +61,12 @@ public class Lexer
 				tok = NewToken(TokenTypes.MINUS);
 				break;
 			case '!':
+				if (PeekAhead() == '=')
+				{
+					tok = NewToken(TokenTypes.NOT_EQ, "!=");
+					ReadChar();
+					break;
+				}
 				tok = NewToken(TokenTypes.BANG);
 				break;
 			case '*':
@@ -145,6 +157,16 @@ public class Lexer
 		{
 			ReadChar();
 		}
+	}
+
+	private char PeekAhead()
+	{
+		if (_readPosition >= Input.Length)
+		{
+			return '\0';
+		}
+
+		return Input[_readPosition];
 	}
 }
 

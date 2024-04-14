@@ -53,6 +53,9 @@ public static class TokenTypes
 	public const string ASTERISK	 = "*";
 	public const string SLASH	 = "/";
 
+	public const string EQ	 = "==";
+	public const string NOT_EQ	 = "!=";
+
 
 	public const string LT	 = "<";
 	public const string GT	 = ">";
