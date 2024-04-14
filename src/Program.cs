@@ -1,5 +1,4 @@
-﻿using System;
-using InterpreterCs.Repl;
+﻿namespace InterpreterCs;
 
 class Program
 {
@@ -13,8 +12,7 @@ class Program
 			string? userInput = Console.ReadLine();
 			if (userInput == "exit")
 				break;
-			Repl.ProcessInput(userInput);
+			Repl.Repl.ProcessInput(userInput);
 		} 
 	}
 }
-
