@@ -1,12 +1,12 @@
-using InterpreterCs.Token;
+using InterpreterCs.Tokens;
+using InterpreterCs.Lexer;
 
 namespace InterpreterCs.Repl; 
-
 public class Repl
 {
 	public static void ProcessInput(string? input)
 	{
-		var lexer = new InterpreterCs.Lexer.Lexer(input);
+		var lexer = new Lexer.Lexer(input);
 		var tok = lexer.NextToken();
 		while (tok.Type != TokenTypes.EOF)
 		{

@@ -1,4 +1,4 @@
-using InterpreterCs.Token;
+using InterpreterCs.Tokens;
 using Xunit.Abstractions;
 
 namespace Lexer.Tests;

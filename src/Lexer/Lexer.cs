@@ -1,8 +1,5 @@
-using InterpreterCs.Token;
-
+using InterpreterCs.Tokens;
 namespace InterpreterCs.Lexer;
-using InterpreterCs.Token;
-
 public class Lexer
 {
 	private string Input { get; }

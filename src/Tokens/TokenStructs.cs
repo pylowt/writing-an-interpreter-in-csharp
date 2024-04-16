@@ -1,5 +1,4 @@
-namespace InterpreterCs.Token;
-
+namespace InterpreterCs.Tokens;
 public readonly struct TokenType
 {
 	public readonly string Value;

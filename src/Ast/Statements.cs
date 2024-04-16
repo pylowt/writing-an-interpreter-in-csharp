@@ -1,25 +1,25 @@
-using System.Linq.Expressions;
+using InterpreterCs.Tokens;
+
 
 namespace InterpreterCs.Ast; 
-
 class LetStatement : IStatement
 {
-	private Token.Token _token { get; set; } 
+	private Token _Token { get; set; } 
 	private Identifier _name { get; set; } 
-	private Expression value { get; set; } 
+	private IExpression _value { get; set; } 
 	
 	public void StatementNode()
 	{
 	}
 	public string TokenLiteral()
 	{
-		return _token.Literal;
+		return _Token.Literal;
 	}
 }
 
 class Identifier : IExpression
 {
-	private Token.Token _token;
+	private Token _token { get; set; }
 
 	private string _value { get; set; }
 	

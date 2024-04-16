@@ -15,8 +15,7 @@ interface IExpression: INode
 	void ExpressionNode();
 }
 
-
-class AstNode : INode
+public class AstNode : INode
 {
 	private List<IStatement> Statements { get; set; } = new List<IStatement>();
 	
