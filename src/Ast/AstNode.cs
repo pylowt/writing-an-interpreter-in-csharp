@@ -1,20 +1,5 @@
 namespace InterpreterCs.Ast; 
 
-interface INode
-{
-	string TokenLiteral();		
-}
-
-interface IStatement : INode
-{
-	void StatementNode();
-}
-
-interface IExpression: INode
-{
-	void ExpressionNode();
-}
-
 public class AstNode : INode
 {
 	private List<IStatement> Statements { get; set; } = new List<IStatement>();
@@ -26,5 +11,3 @@ public class AstNode : INode
 		return "";
 	}
 }
-
-

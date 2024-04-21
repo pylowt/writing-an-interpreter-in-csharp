@@ -2,7 +2,6 @@ using InterpreterCs.Ast;
 using InterpreterCs.Tokens;
 
 namespace InterpreterCs.Parser;
-
 public class Parser
 {
 	private Lexer.Lexer _lexer;

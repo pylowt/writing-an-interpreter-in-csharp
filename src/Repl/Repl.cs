@@ -1,5 +1,4 @@
 using InterpreterCs.Tokens;
-using InterpreterCs.Lexer;
 
 namespace InterpreterCs.Repl; 
 public class Repl
