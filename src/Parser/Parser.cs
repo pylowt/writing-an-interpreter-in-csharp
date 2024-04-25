@@ -6,7 +6,7 @@ public class Parser
 {
 	private Lexer.Lexer _lexer;
 	private Token? _curToken;
-	private readonly Token? _peekToken = null;
+	private Token _peekToken;
 
 	public Parser(Lexer.Lexer l)
 	{
@@ -18,10 +18,11 @@ public class Parser
 	private void NextToken()
 	{
 		_curToken = _peekToken;
+		_peekToken = _lexer.NextToken();
 	}
 
 	public AstNode? ParseProgram()
 	{
-		return null;
+		throw new NotImplementedException();
 	}
 }
