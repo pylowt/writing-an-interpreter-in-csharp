@@ -1,8 +1,6 @@
 using InterpreterCs.Tokens;
-using Xunit.Abstractions;
 
-namespace Lexer.Tests;
-using System.Collections.Generic;
+namespace Tests;
 
 public class LexerTests
 {

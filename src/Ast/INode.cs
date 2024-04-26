@@ -1,6 +1,6 @@
 namespace InterpreterCs.Ast; 
 
-interface INode
+public interface INode
 {
 	string TokenLiteral();		
 }

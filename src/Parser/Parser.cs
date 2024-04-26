@@ -23,6 +23,6 @@ public class Parser
 
 	public AstNode? ParseProgram()
 	{
-		throw new NotImplementedException();
+		return null;
 	}
 }

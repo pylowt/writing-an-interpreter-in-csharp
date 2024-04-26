@@ -1,6 +1,6 @@
 namespace InterpreterCs.Ast; 
 
-interface IStatement : INode
+public interface IStatement : INode
 {
 	void StatementNode();
 }
