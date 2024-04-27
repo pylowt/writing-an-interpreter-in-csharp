@@ -1,8 +1,8 @@
 using InterpreterCs.Tokens;
 
-namespace InterpreterCs.Ast; 
+namespace InterpreterCs.Ast;
 
-class LetStatement : IStatement
+public class LetStatement : IStatement
 {
 	private Token _Token { get; set; } 
 	private Identifier _name { get; set; } 

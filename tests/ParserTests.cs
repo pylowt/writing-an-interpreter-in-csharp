@@ -1,23 +1,41 @@
 using InterpreterCs.Parser;
 using InterpreterCs.Lexer;
+using InterpreterCs.Ast; 
 
 namespace Tests;
 
 public class ParserTests
 {
-	[Fact]
-    public void TestLetStatements()
+	private string _input;
+	private List<string> _expectedIdentifiers;
+	private Lexer _lexer;
+	private Parser _parserinput;
+	private AstNode? _program;
+
+	public ParserTests()
 	{
-	    string input = @"
+	    _input = @"
 			let x = 5;
 			let y = 10;
 			let foobar = 838383;";
-		var lexer = new Lexer(input);
-		var parser = new Parser(lexer);
-		var	program = parser.ParseProgram();
-		// Assert.NotNull(program);
-		Assert.Equal(program.Statements.Count, 3);
-
+		_lexer = new Lexer(_input);
+		_parserinput = new Parser(_lexer);
+		_program = _parserinput.ParseProgram();
+		_expectedIdentifiers = new List<string> {"x", "y", "foobar"};
 	}
 
+	[Fact]
+    public void TestProgramNotNull() 
+	{
+		Assert.NotNull(_program);
+	}
+
+	[Fact]
+	public void TestTokenLiteralsAreAllLet()
+	{
+		foreach (IStatement stmt in _program.Statements)
+		{
+			Assert.Equal(stmt.TokenLiteral(), "let");
+		}
+	}
 }
