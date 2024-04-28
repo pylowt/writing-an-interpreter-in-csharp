@@ -34,8 +34,20 @@ public class ParserTests
 	public void TestTokenLiteralsAreAllLet()
 	{
 		foreach (IStatement stmt in _program.Statements)
-		{
 			Assert.Equal(stmt.TokenLiteral(), "let");
-		}
+	}
+	
+	[Fact]
+	public void TestValueAreAllCorrect()
+	{
+		foreach (var (stmt, idnt) in _program.Statements.Zip(_expectedIdentifiers))
+			Assert.Equal(stmt.Name.Value, idnt);
+	}
+
+	[Fact]
+	public void TestTokenLiteralAreAllCorrect()
+	{
+		foreach (var (stmt, idnt) in _program.Statements.Zip(_expectedIdentifiers))
+			Assert.Equal(stmt.Name.TokenLiteral(), idnt);
 	}
 }
