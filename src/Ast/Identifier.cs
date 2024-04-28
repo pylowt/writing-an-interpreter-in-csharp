@@ -2,17 +2,20 @@ namespace InterpreterCs.Ast;
 
 using Tokens;
 
-class Identifier : IExpression
+public class Identifier : INode
 {
-	private Token Token { get; set; }
+	private readonly Token _token; 
 
-	private string _value { get; set; }
+	public string Value { get; }
 	
-	public void ExpressionNode()
+	public Identifier(Token token, string value)
 	{
+		_token = token;
+		Value = value;
 	}
+
 	public string TokenLiteral()
 	{
-		return Token.Literal;
+		return _token.Literal;
 	}
 }

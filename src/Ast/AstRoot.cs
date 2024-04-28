@@ -1,8 +1,8 @@
 namespace InterpreterCs.Ast; 
 
-public class AstNode : INode
+public class AstRoot : INode
 {
-	public List<IStatement> Statements { get; set; } = new List<IStatement>();
+	public List<Statement> Statements { get; } = new();
 	
 	public string TokenLiteral()
 	{
