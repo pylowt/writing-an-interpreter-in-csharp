@@ -3,6 +3,14 @@ using InterpreterCs.Tokens;
 
 namespace InterpreterCs.Parser;
 
+/*
+Ideas for improvement:
+Enhance error handling in the parser:
+Right now, if an expected token is not found, null is returned, which is simple but does not provide enough information 
+for debugging syntax errors. Implement a system to collect and report parsing errors, which might include detailed 
+messages about what went wrong and where.
+*/
+
 public class Parser
 {
 	private readonly Lexer.Lexer _lexer;
