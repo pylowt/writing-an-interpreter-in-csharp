@@ -1,6 +1,7 @@
 using InterpreterCs.Parser;
 using InterpreterCs.Lexer;
-using InterpreterCs.Ast; 
+using InterpreterCs.Ast;
+using Xunit.Sdk;
 
 namespace Tests;
 
@@ -8,16 +9,17 @@ public class ParserTests
 {
 	private readonly List<string> _expectedIdentifiers;
 	private readonly AstRoot _program;
+	private readonly Parser _parser;
 
 	public ParserTests()
 	{
-		var input = @"
+		const string input = @"
 			let x = 5;
 			let y = 10;
 			let foobar = 838383;";
 		var lexer = new Lexer(input);
-		var parserinput = new Parser(lexer);
-		_program = parserinput.ParseProgram();
+		_parser = new Parser(lexer);
+		_program = _parser.ParseProgram();
 		_expectedIdentifiers = new List<string> {"x", "y", "foobar"};
 	}
 
@@ -57,5 +59,12 @@ public class ParserTests
 			else
 				Assert.True(false, $"Incorrect type of statement, got {stmt.GetType()} expected LetStatement");
 		}
+	}
+
+	private void CheckParserErrors()
+	{
+		List<string> errors = _parser.Errors;
+		var hasErrors = errors.Any();
+		Assert.False(hasErrors, $"Parser Error: {string.Join("\n", errors)}");
 	}
 }
