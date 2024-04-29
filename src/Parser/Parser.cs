@@ -16,10 +16,12 @@ public class Parser
 	private readonly Lexer.Lexer _lexer;
 	private Token _curToken;
 	private Token _peekToken;
+	public List<string> Errors { get; }
 
 	public Parser(Lexer.Lexer l)
 	{
 		_lexer = l;
+		Errors = new List<string>();
 		NextToken();
 		NextToken();
 	}
@@ -93,6 +95,13 @@ public class Parser
 			NextToken();
 			return true;
 		}
+		PeekError(t);
 		return false;
+	}
+
+	private void PeekError(TokenType t)
+	{
+		string message = $"Expected next token to be {t}, got {_peekToken.Type} instead";
+		Errors.Add(message);
 	}
 }
