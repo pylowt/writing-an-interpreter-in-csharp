@@ -47,12 +47,14 @@ public class Parser
 		return program;
 	}
 
-	private LetStatement? ParseStatement()
+	private Statement? ParseStatement()
 	{
 		switch (_curToken.Type)
 		{
 			case TokenTypes.LET:
 				return ParseLetStatement();
+			case TokenTypes.RETURN:
+				return ParseReturnStatement();
 			default:
 				return null; 
 		}
@@ -70,6 +72,17 @@ public class Parser
 		if (!ExpectPeek(TokenTypes.ASSIGN))
 			return null;
 
+		// TODO: Skipping the expressions until encounter a semicolon
+		while (!CurTokenIs(TokenTypes.SEMICOLON))
+		{
+			NextToken();
+		}
+		return stmt;
+	}
+
+	private ReturnStatement ParseReturnStatement()
+	{
+		var stmt = new ReturnStatement(){Token = _curToken};
 		// TODO: Skipping the expressions until encounter a semicolon
 		while (!CurTokenIs(TokenTypes.SEMICOLON))
 		{
