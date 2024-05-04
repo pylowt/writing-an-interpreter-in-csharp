@@ -33,7 +33,7 @@ public class ParserTests
 	public void TestTokenLiteralsAreAllLet()
 	{
 		foreach (var stmt in _program.Statements)
-			Assert.Equal(stmt.TokenLiteral(), "let");
+			Assert.Equal("let", stmt.TokenLiteral());
 	}
 	
 	[Fact]
