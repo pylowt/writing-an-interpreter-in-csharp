@@ -7,7 +7,6 @@ namespace Tests;
 
 public class ParserTests
 {
-	// private readonly List<string> _expectedIdentifiers;
 	private AstRoot _program;
 	private Parser _parser;
 
@@ -62,6 +61,4 @@ public class ParserTests
 		}
 			
 	}
-	
-
 }
