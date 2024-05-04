@@ -7,64 +7,61 @@ namespace Tests;
 
 public class ParserTests
 {
-	private readonly List<string> _expectedIdentifiers;
-	private readonly AstRoot _program;
-	private readonly Parser _parser;
+	// private readonly List<string> _expectedIdentifiers;
+	private AstRoot _program;
+	private Parser _parser;
 
-	public ParserTests()
+	private void Initialise(string input)
 	{
-		const string input = @"
-			let x = 5;
-			let y = 10;
-			let foobar = 838383;";
 		var lexer = new Lexer(input);
 		_parser = new Parser(lexer);
-		_program = _parser.ParseProgram();
-		_expectedIdentifiers = new List<string> {"x", "y", "foobar"};
+		_program = _parser.ParseProgram();	
+		CheckParserErrors();
 	}
-
-	[Fact]
-    public void TestProgramNotNull() 
-	{
-		Assert.NotNull(_program);
-	}
-
-	[Fact]
-	public void TestTokenLiteralsAreAllLet()
-	{
-		foreach (var stmt in _program.Statements)
-			Assert.Equal("let", stmt.TokenLiteral());
-	}
-	
-	[Fact]
-	public void TestValueAreAllCorrect()
-	{
-		foreach (var (stmt, idnt) in _program.Statements.Zip(_expectedIdentifiers))
-		{
-			if (stmt is LetStatement letStatement)
-				Assert.Equal(letStatement.Name.Value, idnt);
-			else 
-				Assert.True(false, $"Incorrect type of statement, got {stmt.GetType()} expected LetStatement");
-		}
-			
-	}
-
-	[Fact]
-	public void TestTokenLiteralAreAllCorrect()
-	{
-		foreach (var (stmt, idnt) in _program.Statements.Zip(_expectedIdentifiers))
-		{
-			if (stmt is LetStatement letStatement)
-				Assert.Equal(letStatement.Name.TokenLiteral(), idnt);
-			else
-				Assert.True(false, $"Incorrect type of statement, got {stmt.GetType()} expected LetStatement");
-		}
-	}
-
 	private void CheckParserErrors()
 	{
 		List<string> errors = _parser.Errors;
-		var hasErrors = errors.Any();
-		Assert.False(hasErrors, $"Parser Error: {string.Join("\n", errors)}");
+		Assert.False(errors.Any(), $"Parser Error: {string.Join("\n", errors)}");
 	}
+	
+	[Theory]
+	[InlineData(
+		@"
+		let x = 5;
+		let y = 10;
+		let foobar = 838383;",
+		new[] { "x", "y", "foobar" }
+		)]
+	public void TestLetStatements(string input, string[] expectedIdentifiers)
+	{
+		Initialise(input);
+		foreach (var (stmt, idnt) in _program.Statements.Zip(expectedIdentifiers))
+		{
+			var statement = Assert.IsType<LetStatement>(stmt);
+			Assert.Equal(statement.Name.Value, idnt);
+			Assert.Equal("let", stmt.TokenLiteral());
+		}
+	}
+
+	[Theory]
+	[InlineData(
+		@"
+		return 5;
+		return 10;
+		return 993322;"
+		)]
+	public void TestReturnStatements(string input)
+	{
+		Initialise(input);	
+		CheckParserErrors();
+		Assert.Equal(3, _program.Statements.Count);
+		foreach (var stmt in _program.Statements)
+		{
+			Assert.IsType<ReturnStatement>(stmt);
+			Assert.Equal("return", stmt.TokenLiteral());
+		}
+			
+	}
+	
+
 }
