@@ -83,9 +83,6 @@ public class Lexer
 			case ',':
 				tok = NewToken(TokenTypes.COMMA);
 				break;
-			case ';':
-				tok = NewToken(TokenTypes.SEMICOLON);
-				break;
 			case '(':
 				tok = NewToken(TokenTypes.LPAREN);
 				break;
@@ -97,6 +94,9 @@ public class Lexer
 				break;
 			case '}':
 				tok = NewToken(TokenTypes.RBRACE);
+				break;
+			case '\n':
+				tok = NewToken(TokenTypes.NEWLINE);
 				break;
 			case '\0':
 				tok = NewToken(TokenTypes.EOF, String.Empty);
@@ -152,7 +152,7 @@ public class Lexer
 
 	private void EatWhitespace()
 	{
-		while (_ch is ' ' or '\t' or '\n' or '\r')
+		while (_ch is ' ' or '\t')
 		{
 			ReadChar();
 		}

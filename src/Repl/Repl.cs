@@ -9,7 +9,7 @@ public class Repl
 		var tok = lexer.NextToken();
 		while (tok.Type != TokenTypes.EOF)
 		{
-			Console.WriteLine($"Type:{tok.Type} Literal:{tok.Literal}");
+			Console.WriteLine($"Type:{tok.Type} Literal:{@tok.Literal}");
 			tok = lexer.NextToken();
 		}
 	}

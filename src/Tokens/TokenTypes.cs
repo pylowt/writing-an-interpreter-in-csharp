@@ -28,6 +28,7 @@ public static class TokenTypes
 	// Delimiters
 	public const string COMMA		 = ",";
 	public const string SEMICOLON	 = ";";
+	public static readonly string NEWLINE = Environment.NewLine;
 	public const string	LPAREN	= "(";
 	public const string	RPAREN	= ")";
 	public const string	LBRACE	= "{";
@@ -35,7 +36,7 @@ public static class TokenTypes
 
 	// Keywords
 	public const string FUNCTION = "FUNCTION";
-	public const string LET		 = "LET";
+	public const string VAR		 = "VAR";
 	public const string TRUE	= "TRUE";
 	public const string FALSE	= "FALSE";
 	public const string IF  	= "IF";
@@ -45,7 +46,7 @@ public static class TokenTypes
 	private static readonly Dictionary<string, TokenType> Keywords = new()
 	{
 		{ "fn", FUNCTION},
-		{ "let", LET},
+		{ "var", VAR},
 		{ "true", TRUE},
 		{ "false", FALSE},
 		{ "if", IF},

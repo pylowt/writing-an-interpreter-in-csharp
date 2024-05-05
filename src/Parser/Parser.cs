@@ -51,7 +51,7 @@ public class Parser
 	{
 		switch (_curToken.Type)
 		{
-			case TokenTypes.LET:
+			case TokenTypes.VAR:
 				return ParseLetStatement();
 			case TokenTypes.RETURN:
 				return ParseReturnStatement();
