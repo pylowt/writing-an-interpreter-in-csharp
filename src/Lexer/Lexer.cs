@@ -10,7 +10,11 @@ public class Lexer
 	// Current reading position in input (after current char)
 	private int _readPosition; 
 	// Current char under examination
-	private char _ch; 
+	private char _ch;
+
+	private bool _atBegLine = true;
+	
+	private Stack<int> _indents = new Stack<int>();	
 
 	public Lexer(string input)
 	{
@@ -41,7 +45,24 @@ public class Lexer
 	public Token NextToken()
 	{
 		Token tok;
-		EatWhitespace();
+		int whitespaceCount = CountWhitespace();
+		if (_atBegLine)
+		{
+			if (_indents.Count == 0)
+			{
+				_indents.Push(whitespaceCount);
+			}
+			else if (whitespaceCount > _indents.Peek())
+			{
+				_indents.Push(whitespaceCount);
+				tok = NewToken(TokenTypes.INDENT);
+			}
+			else while (whitespaceCount < _indents.Peek())
+			{
+				_indents.Pop();
+				tok = NewToken(TokenTypes.DEDENT);
+			}
+		}
 		switch (_ch)
 		{
 			case '=':
@@ -95,9 +116,6 @@ public class Lexer
 			case '}':
 				tok = NewToken(TokenTypes.RBRACE);
 				break;
-			case '\n':
-				tok = NewToken(TokenTypes.NEWLINE);
-				break;
 			case '\0':
 				tok = NewToken(TokenTypes.EOF, String.Empty);
 				break;
@@ -115,9 +133,15 @@ public class Lexer
 					return tok;
 				}
 				tok = NewToken(TokenTypes.ILLEGAL);
-
 				break;
 		}
+		if (_ch == '\n')
+		{
+			tok = NewToken(TokenTypes.NEWLINE);
+			_atBegLine = true;
+		}
+		else
+			_atBegLine = false;
 		ReadChar();
 		return tok;
 	}
@@ -166,6 +190,17 @@ public class Lexer
 		}
 
 		return Input[_readPosition];
+	}
+
+	private int CountWhitespace()
+	{
+		int count = 0;
+		while (_ch is ' ' or '\t')
+		{
+			count++;
+			ReadChar();
+		}
+		return count;
 	}
 }
 

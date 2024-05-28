@@ -33,6 +33,8 @@ public static class TokenTypes
 	public const string	RPAREN	= ")";
 	public const string	LBRACE	= "{";
 	public const string	RBRACE	= "}";
+	public const string INDENT = "INDENT";
+	public const string DEDENT = "DEDENT";
 
 	// Keywords
 	public const string FUNCTION = "FUNCTION";
