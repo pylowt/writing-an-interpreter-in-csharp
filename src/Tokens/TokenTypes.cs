@@ -27,8 +27,8 @@ public static class TokenTypes
 
 	// Delimiters
 	public const string COMMA		 = ",";
-	public const string SEMICOLON	 = ";";
-	public static readonly string NEWLINE = Environment.NewLine;
+	public const string COLON	 = ":";
+	public const string NEWLINE = "\n";
 	public const string	LPAREN	= "(";
 	public const string	RPAREN	= ")";
 	public const string	LBRACE	= "{";

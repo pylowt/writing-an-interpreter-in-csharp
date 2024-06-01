@@ -8,6 +8,9 @@ public class LexerTests
     public void TestNextToken()
     {
 	    string input = @"var five = 5
+if five == 5:
+    if 5 == five:
+        pass
 var ten = 10";
 	    List<KeyValuePair<string, string>> tests = new List<KeyValuePair<string, string>>
 	    {
@@ -16,17 +19,38 @@ var ten = 10";
 			new(TokenTypes.ASSIGN, "="),
 			new(TokenTypes.INT, "5"),
 			new(TokenTypes.NEWLINE, "\n"),
-			new(TokenTypes.VAR, "var"),
+			new(TokenTypes.IF, "if"),
+			new(TokenTypes.IDENT, "five"),
+			new(TokenTypes.EQ, "=="),
+			new(TokenTypes.INT, "5"),
+			new(TokenTypes.COLON, ":"),
+			new(TokenTypes.NEWLINE, "\n"),
+			new(TokenTypes.INDENT, ""),
+			new(TokenTypes.IF, "if"),
+			new(TokenTypes.INT, "5"),
+			new(TokenTypes.EQ, "=="),
+			new(TokenTypes.IDENT, "five"),
+			new(TokenTypes.COLON, ":"),
+			new(TokenTypes.NEWLINE, "\n"),
+			new(TokenTypes.INDENT, ""),
+			new(TokenTypes.IDENT, "pass"),
+			new(TokenTypes.DEDENT, ""),
+			new(TokenTypes.DEDENT, ""),
+		    new(TokenTypes.VAR, "var"),
 			new(TokenTypes.IDENT, "ten"),
 			new(TokenTypes.ASSIGN, "="),
-			new(TokenTypes.INT, "10"),
+			new(TokenTypes.IDENT, "ten"),
+			new(TokenTypes.EOF, ""),
 		};
 
 		var lexer = new InterpreterCs.Lexer.Lexer(input);
+		int foo = 0;
 		foreach(KeyValuePair<string, string> entry in tests)
 		{
+			foo++;
 			var result = lexer.NextToken();
 			var typeMessage = $"{result.Type} - TokenType wrong. Expected {entry.Key}";
+			System.Console.WriteLine(foo);
 			Assert.True(entry.Key.Equals(result.Type), typeMessage);
 			var literalMessage = $"{result.Literal} - Literal wrong. Expected {entry.Value}";
 			Assert.True(entry.Value.Equals(result.Literal), literalMessage);

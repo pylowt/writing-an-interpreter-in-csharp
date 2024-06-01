@@ -45,6 +45,7 @@ public class Lexer
 	public Token NextToken()
 	{
 		Token tok;
+		var bar = _atBegLine; 
 		int whitespaceCount = CountWhitespace();
 		if (_atBegLine)
 		{
@@ -62,6 +63,8 @@ public class Lexer
 				_indents.Pop();
 				tok = NewToken(TokenTypes.DEDENT);
 			}
+
+			_atBegLine = false;
 		}
 		switch (_ch)
 		{
@@ -116,6 +119,13 @@ public class Lexer
 			case '}':
 				tok = NewToken(TokenTypes.RBRACE);
 				break;
+			case ':':
+				tok = NewToken(TokenTypes.COLON);
+				break;
+			case '\n':
+				tok = NewToken(TokenTypes.NEWLINE);
+				_atBegLine = true;
+				break;
 			case '\0':
 				tok = NewToken(TokenTypes.EOF, String.Empty);
 				break;
@@ -135,13 +145,7 @@ public class Lexer
 				tok = NewToken(TokenTypes.ILLEGAL);
 				break;
 		}
-		if (_ch == '\n')
-		{
-			tok = NewToken(TokenTypes.NEWLINE);
-			_atBegLine = true;
-		}
-		else
-			_atBegLine = false;
+		
 		ReadChar();
 		return tok;
 	}
@@ -201,6 +205,11 @@ public class Lexer
 			ReadChar();
 		}
 		return count;
+	}
+
+	private void _handleWhitespace()
+	{
+		
 	}
 }
 
