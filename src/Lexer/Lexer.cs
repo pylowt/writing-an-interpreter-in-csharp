@@ -44,7 +44,7 @@ public class Lexer
 
 	public Token NextToken()
 	{
-		Token tok;
+		Token tok = default;
 		var bar = _atBegLine; 
 		int whitespaceCount = CountWhitespace();
 		if (_atBegLine)
@@ -57,95 +57,103 @@ public class Lexer
 			{
 				_indents.Push(whitespaceCount);
 				tok = NewToken(TokenTypes.INDENT);
+				ReadChar();
+				return tok;
 			}
-			else while (whitespaceCount < _indents.Peek())
+			else if (whitespaceCount < _indents.Peek())
 			{
 				_indents.Pop();
 				tok = NewToken(TokenTypes.DEDENT);
+				ReadChar();
+				return tok;
 			}
 
 			_atBegLine = false;
 		}
+
 		switch (_ch)
-		{
-			case '=':
-				if (PeekAhead() == '=')
-				{
-					tok = NewToken(TokenTypes.EQ, "==");
-					ReadChar();
+			{
+				case '=':
+					if (PeekAhead() == '=')
+					{
+						tok = NewToken(TokenTypes.EQ, "==");
+						ReadChar();
+						break;
+					}
+
+					tok = NewToken(TokenTypes.ASSIGN);
 					break;
-				}
-				tok = NewToken(TokenTypes.ASSIGN);
-				break;
-			case '+':
-				tok = NewToken(TokenTypes.PLUS);
-				break;
-			case '-':
-				tok = NewToken(TokenTypes.MINUS);
-				break;
-			case '!':
-				if (PeekAhead() == '=')
-				{
-					tok = NewToken(TokenTypes.NOT_EQ, "!=");
-					ReadChar();
+				case '+':
+					tok = NewToken(TokenTypes.PLUS);
 					break;
-				}
-				tok = NewToken(TokenTypes.BANG);
-				break;
-			case '*':
-				tok = NewToken(TokenTypes.ASTERISK);
-				break;
-			case '/':
-				tok = NewToken(TokenTypes.SLASH);
-				break;
-			case '<':
-				tok = NewToken(TokenTypes.LT);
-				break;
-			case '>':
-				tok = NewToken(TokenTypes.GT);
-				break;
-			case ',':
-				tok = NewToken(TokenTypes.COMMA);
-				break;
-			case '(':
-				tok = NewToken(TokenTypes.LPAREN);
-				break;
-			case ')':
-				tok = NewToken(TokenTypes.RPAREN);
-				break;
-			case '{':
-				tok = NewToken(TokenTypes.LBRACE);
-				break;
-			case '}':
-				tok = NewToken(TokenTypes.RBRACE);
-				break;
-			case ':':
-				tok = NewToken(TokenTypes.COLON);
-				break;
-			case '\n':
-				tok = NewToken(TokenTypes.NEWLINE);
-				_atBegLine = true;
-				break;
-			case '\0':
-				tok = NewToken(TokenTypes.EOF, String.Empty);
-				break;
-			default:
-				if (IsALetter())
-				{
-					var literal = ReadIdentifier();
-					tok = NewToken(TokenTypes.LookupIdent(literal), literal);
-					return tok;
-				}
-				if (IsADigit())
-				{
-					var literal = ReadNumber();
-					tok = NewToken(TokenTypes.INT, literal);
-					return tok;
-				}
-				tok = NewToken(TokenTypes.ILLEGAL);
-				break;
-		}
-		
+				case '-':
+					tok = NewToken(TokenTypes.MINUS);
+					break;
+				case '!':
+					if (PeekAhead() == '=')
+					{
+						tok = NewToken(TokenTypes.NOT_EQ, "!=");
+						ReadChar();
+						break;
+					}
+
+					tok = NewToken(TokenTypes.BANG);
+					break;
+				case '*':
+					tok = NewToken(TokenTypes.ASTERISK);
+					break;
+				case '/':
+					tok = NewToken(TokenTypes.SLASH);
+					break;
+				case '<':
+					tok = NewToken(TokenTypes.LT);
+					break;
+				case '>':
+					tok = NewToken(TokenTypes.GT);
+					break;
+				case ',':
+					tok = NewToken(TokenTypes.COMMA);
+					break;
+				case '(':
+					tok = NewToken(TokenTypes.LPAREN);
+					break;
+				case ')':
+					tok = NewToken(TokenTypes.RPAREN);
+					break;
+				case '{':
+					tok = NewToken(TokenTypes.LBRACE);
+					break;
+				case '}':
+					tok = NewToken(TokenTypes.RBRACE);
+					break;
+				case ':':
+					tok = NewToken(TokenTypes.COLON);
+					break;
+				case '\n':
+					tok = NewToken(TokenTypes.NEWLINE);
+					_atBegLine = true;
+					break;
+				case '\0':
+					tok = NewToken(TokenTypes.EOF, String.Empty);
+					break;
+				default:
+					if (IsALetter())
+					{
+						var literal = ReadIdentifier();
+						tok = NewToken(TokenTypes.LookupIdent(literal), literal);
+						return tok;
+					}
+
+					if (IsADigit())
+					{
+						var literal = ReadNumber();
+						tok = NewToken(TokenTypes.INT, literal);
+						return tok;
+					}
+
+					tok = NewToken(TokenTypes.ILLEGAL);
+					break;
+			}
 		ReadChar();
 		return tok;
 	}
